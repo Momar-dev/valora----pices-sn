@@ -1,5 +1,5 @@
-import React from 'react';
-import valoraLogoImg from '../assets/VALORA Agricultural Logo Badge.png';
+﻿import React from 'react';
+import valoraLogoImg from '../assets/alpha-valora-logo.jpeg';
 
 export { valoraLogoImg };
 
@@ -12,8 +12,7 @@ interface ValoraLogoProps {
 }
 
 /**
- * Composant Logo Officiel VALORA ÉPICES'SN
- * Préserve intégralement la forme d'origine (squircle authentique) sans rognage circulaire artificiel.
+ * Composant Logo Officiel ALPHA VALORA ÉPICES'SN
  */
 export const ValoraLogo: React.FC<ValoraLogoProps> = ({
   className = '',
@@ -22,15 +21,17 @@ export const ValoraLogo: React.FC<ValoraLogoProps> = ({
   showTagline = true,
   theme = 'light',
 }) => {
+  const sizeStyle = typeof size === 'number'
+    ? { width: size, height: size }
+    : { width: size, height: size };
+
   if (variant === 'badge') {
     return (
       <img
         src={valoraLogoImg}
-        alt="Logo officiel VALORA ÉPICES'SN"
-        width={typeof size === 'number' ? size : undefined}
-        height={typeof size === 'number' ? size : undefined}
-        className={`object-contain drop-shadow-sm ${className}`}
-        style={typeof size === 'string' ? { width: size, height: size } : undefined}
+        alt="Logo officiel ALPHA VALORA ÉPICES'SN"
+        className={`object-contain ${className}`}
+        style={sizeStyle}
         loading="eager"
       />
     );
@@ -40,28 +41,26 @@ export const ValoraLogo: React.FC<ValoraLogoProps> = ({
     return (
       <img
         src={valoraLogoImg}
-        alt="Symbole officiel VALORA"
-        width={typeof size === 'number' ? size : undefined}
-        height={typeof size === 'number' ? size : undefined}
-        className={`object-contain drop-shadow-sm ${className}`}
-        style={typeof size === 'string' ? { width: size, height: size } : undefined}
+        alt="Symbole officiel ALPHA VALORA"
+        className={`object-contain ${className}`}
+        style={sizeStyle}
       />
     );
   }
 
-  // Variant horizontal: Official badge + brand name & tagline
+  // Variant horizontal: logo + texte
   const isDark = theme === 'dark';
   return (
     <div className={`flex items-center gap-3.5 ${className}`}>
       <img
         src={valoraLogoImg}
-        alt="Logo officiel VALORA ÉPICES'SN"
-        className="w-11 h-11 object-contain shrink-0 drop-shadow-sm"
+        alt="Logo officiel ALPHA VALORA ÉPICES'SN"
+        className="w-11 h-11 object-contain shrink-0"
       />
       <div className="flex flex-col text-left leading-tight">
         <div className="flex items-baseline gap-1.5">
           <span className={`font-black tracking-tight text-lg font-sans ${isDark ? 'text-white' : 'text-[#0A192F]'}`}>
-            VALORA
+            ALPHA VALORA
           </span>
           <span className="text-xs font-bold tracking-wider text-[#2E7D32]">
             ÉPICES'SN

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { 
   Camera, 
   Layers, 
@@ -43,7 +43,7 @@ import { AppScreensShowcase } from './components/AppScreensShowcase';
 import { OFFICIAL_CONTACT } from './config/downloadLinks';
 
 /**
- * Icône officielle vectorielle TikTok (Seul réseau social officiel de VALORA)
+ * Icône officielle vectorielle TikTok (Seul réseau social officiel de ALPHA VALORA)
  */
 const TikTokIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -53,6 +53,42 @@ const TikTokIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' })
 
 export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Formulaire de contact officiel (3 champs) connecté à Web3Forms (valoraappli@gmail.com)
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+  const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [contactError, setContactError] = useState('');
+
+  const handleContactSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setContactSubmitting(true);
+    setContactError('');
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append('access_key', '0aa5673d-9774-4c27-a6d9-4be21b47d1d3');
+    formData.append('subject', 'Nouveau message reçu depuis le site valoraepicesn.com');
+    formData.append('from_name', 'Formulaire de Contact ALPHA VALORA');
+
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setContactSubmitted(true);
+        form.reset();
+      } else {
+        setContactError(data.message || 'Une erreur est survenue lors de l\'envoi.');
+      }
+    } catch {
+      setContactError('Erreur de connexion. Veuillez vérifier votre connexion et réessayer.');
+    } finally {
+      setContactSubmitting(false);
+    }
+  };
 
   const scrollToSection = (id: string) => {
     setMobileMenuOpen(false);
@@ -69,24 +105,24 @@ export default function App() {
           1. EN-TÊTE / NAVIGATION LUMINEUSE (TOP BAR CONTRACT 2026)
       ============================================================ */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 gap-4 sm:gap-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-6">
+          <div className="flex items-center justify-between h-20 gap-2 sm:gap-4">
             
-            {/* Zone 1: Brand Mark officiel VALORA ÉPICES'SN */}
+            {/* Zone 1: Brand Mark officiel ALPHA VALORA ÉPICES'SN */}
             <a 
               href="#" 
               className="flex items-center gap-3 sm:gap-3.5 group shrink-0 focus:outline-none"
-              aria-label="VALORA ÉPICES'SN Accueil"
+              aria-label="ALPHA VALORA ÉPICES'SN Accueil"
             >
               <ValoraLogo 
                 variant="badge" 
                 size={54} 
-                className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 transition-transform group-hover:scale-105 drop-shadow-xs" 
+                className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 transition-transform group-hover:scale-105" 
               />
               <div className="flex flex-col text-left">
                 <div className="flex items-baseline gap-1.5">
                   <span className="font-black tracking-tight text-lg sm:text-xl text-[#0A192F] font-sans">
-                    VALORA
+                    ALPHA VALORA
                   </span>
                   <span className="text-xs font-bold tracking-wider text-[#2E7D32]">
                     ÉPICES'SN
@@ -99,7 +135,7 @@ export default function App() {
             </a>
 
             {/* Zone 2: Navigation Links (Textes nets, sans tirets, sans capsules) */}
-            <nav className="hidden lg:flex items-center gap-7 text-xs font-bold uppercase tracking-wider text-slate-600">
+            <nav className="hidden lg:flex items-center gap-5 text-xs font-bold uppercase tracking-wider text-slate-600">
               <button 
                 type="button" 
                 onClick={() => scrollToSection('proposition')} 
@@ -138,20 +174,27 @@ export default function App() {
               <button 
                 type="button" 
                 onClick={() => scrollToSection('tarifs')} 
-                className="hover:text-[#2E7D32] transition-colors whitespace-nowrap cursor-pointer text-[#2E7D32] font-bold"
+                className="hover:text-[#2E7D32] transition-colors whitespace-nowrap cursor-pointer"
               >
                 Tarifs
+              </button>
+              <button 
+                type="button" 
+                onClick={() => scrollToSection('contact')} 
+                className="hover:text-[#2E7D32] transition-colors whitespace-nowrap cursor-pointer text-[#2E7D32] font-bold"
+              >
+                Contact
               </button>
             </nav>
 
             {/* Zone 3: CTA Téléchargement & TikTok officiel */}
-            <div className="hidden sm:flex items-center gap-2.5 shrink-0">
+            <div className="hidden sm:flex items-center gap-2 shrink-0">
               <a
                 href={OFFICIAL_CONTACT.tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-800 hover:text-black bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all cursor-pointer"
-                title="Compte TikTok officiel VALORA ÉPICES'SN"
+                title="Compte TikTok officiel ALPHA VALORA ÉPICES'SN"
               >
                 <TikTokIcon className="w-4 h-4 text-black" />
                 <span className="hidden md:inline">{OFFICIAL_CONTACT.tiktokHandle}</span>
@@ -159,7 +202,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => scrollToSection('telecharger')}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#2E7D32] hover:bg-[#256629] transition-all shadow-sm hover:shadow cursor-pointer"
+                className="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-white bg-[#2E7D32] hover:bg-[#256629] transition-all shadow-sm hover:shadow cursor-pointer"
               >
                 <Download className="w-4 h-4" />
                 <span>Télécharger</span>
@@ -222,9 +265,16 @@ export default function App() {
             <button
               type="button"
               onClick={() => scrollToSection('tarifs')}
-              className="block w-full text-left py-2 text-sm font-bold text-[#2E7D32] hover:text-[#256629]"
+              className="block w-full text-left py-2 text-sm font-semibold text-slate-800 hover:text-[#2E7D32]"
             >
               Modèle Freemium & Tarifs
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollToSection('contact')}
+              className="block w-full text-left py-2 text-sm font-bold text-[#2E7D32] hover:text-[#256629]"
+            >
+              Formulaire de Contact
             </button>
             <div className="pt-2 border-t border-slate-100 space-y-2">
               <a
@@ -258,7 +308,7 @@ export default function App() {
         <div className="absolute top-0 right-1/4 w-[450px] h-[350px] bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-1/3 left-10 w-[350px] h-[250px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-4 lg:px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             
             {/* Colonne Gauche : Pitch & Boutons Officiels */}
@@ -269,7 +319,7 @@ export default function App() {
                 <ValoraLogo variant="badge" size={34} className="shrink-0" />
                 <div className="flex flex-col text-left">
                   <span className="font-black text-xs sm:text-sm text-[#0A192F] tracking-tight">
-                    VALORA ÉPICES'SN
+                    ALPHA VALORA ÉPICES'SN
                   </span>
                   <span className="text-[10px] sm:text-[11px] font-semibold text-[#D97736]">
                     Valoriser. Transformer. Entreprendre.
@@ -284,7 +334,7 @@ export default function App() {
 
               {/* Texte explicatif concis et fidèle */}
               <p className="text-sm sm:text-lg text-slate-600 leading-relaxed max-w-xl mx-auto sm:mx-0">
-                Dédiée aux <strong className="text-slate-900">femmes et jeunes entrepreneurs agroalimentaires</strong>, VALORA combine l'identification par photo des récoltes, les fiches techniques de fabrication standardisées et le calcul précis des coûts et marges de production.
+                Dédiée aux <strong className="text-slate-900">femmes et jeunes entrepreneurs agroalimentaires</strong>, ALPHA VALORA combine l'identification par photo des récoltes, les fiches techniques de fabrication standardisées et le calcul précis des coûts et marges de production.
               </p>
 
               {/* Vrais Boutons de téléchargement Google Play et App Store avec ombre portée */}
@@ -322,7 +372,7 @@ export default function App() {
               <div className="relative w-full max-w-[420px] rounded-[28px] sm:rounded-[42px] overflow-hidden shadow-xl sm:shadow-2xl border-4 border-white bg-slate-900 group">
                 <img 
                   src="/images/hero-entrepreneur.jpg" 
-                  alt="Transformatrice agroalimentaire VALORA ÉPICES'SN en Casamance" 
+                  alt="Transformatrice agroalimentaire ALPHA VALORA ÉPICES'SN en Casamance" 
                   className="w-full h-72 sm:h-96 lg:h-[480px] object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -338,7 +388,7 @@ export default function App() {
                   <div className="flex items-center justify-between gap-2">
                     <div className="min-w-0 flex-1">
                       <div className="font-black text-xs sm:text-sm text-[#0A192F] tracking-tight">
-                        VALORA ÉPICES'SN
+                        ALPHA VALORA ÉPICES'SN
                       </div>
                       <div className="text-[10px] sm:text-[11px] font-semibold text-[#2E7D32] leading-tight">
                         Valoriser · Transformer · Entreprendre
@@ -362,7 +412,7 @@ export default function App() {
 
           </div>
 
-          {/* LES 4 PILIERS VALORA (STYLE ÉPURÉ DU SITE OFFICIEL) */}
+          {/* LES 4 PILIERS ALPHA VALORA (STYLE ÉPURÉ DU SITE OFFICIEL) */}
           <div className="mt-14 pt-10 border-t border-slate-200/80 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs text-center sm:text-left flex flex-col items-center sm:items-start space-y-2 hover:border-emerald-500/40 transition-colors">
               <div className="w-10 h-10 rounded-xl bg-emerald-50 text-[#2E7D32] flex items-center justify-center">
@@ -401,7 +451,7 @@ export default function App() {
           3. PROPOSITION DE VALEUR (BENTO GRID LUMINEUSE)
       ============================================================ */}
       <section id="proposition" className="py-20 sm:py-24 bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-6">
           
           <div className="text-center max-w-3xl mx-auto mb-16">
             <span className="text-xs font-bold uppercase tracking-wider text-[#2E7D32]">
@@ -411,7 +461,7 @@ export default function App() {
               Une réponse technologique aux défis du terrain
             </h2>
             <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed">
-              En Casamance et au Sénégal, la saisonnalité des récoltes provoque des pertes massives. VALORA apporte les outils pour transformer chaque surplus en opportunité commerciale.
+              En Casamance et au Sénégal, la saisonnalité des récoltes provoque des pertes massives. ALPHA VALORA apporte les outils pour transformer chaque surplus en opportunité commerciale.
             </p>
           </div>
 
@@ -463,14 +513,14 @@ export default function App() {
             <div className="lg:col-span-7 p-7 sm:p-10 lg:p-12 space-y-5 text-left flex flex-col justify-center">
               <div>
                 <span className="text-[11px] font-extrabold uppercase tracking-widest text-[#4ADE80] bg-emerald-950/80 px-3.5 py-1.5 rounded-full border border-emerald-500/30">
-                  À propos d'ÉPICES'SN & VALORA
+                  À propos d'ÉPICES'SN & ALPHA VALORA
                 </span>
               </div>
               <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight">
                 Un projet au service d'un impact durable
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
-                VALORA est née d'une conviction : les richesses de notre terroir sénégalais peuvent transformer des vies. En connectant les productrices, transformatrices et jeunes entrepreneurs, nous créons des opportunités concrètes, soutenons l'économie locale et bâtissons un modèle plus inclusif et pérenne.
+                ALPHA VALORA est née d'une conviction : les richesses de notre terroir sénégalais peuvent transformer des vies. En connectant les productrices, transformatrices et jeunes entrepreneurs, nous créons des opportunités concrètes, soutenons l'économie locale et bâtissons un modèle plus inclusif et pérenne.
               </p>
               
               {/* Les 4 compteurs clés inspirés du site officiel */}
@@ -494,7 +544,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="lg:col-span-5 h-64 sm:h-80 lg:h-full min-h-[300px]">
+            <div className="lg:col-span-5 h-80 sm:h-96 lg:h-full min-h-[380px] lg:min-h-[460px]">
               <img 
                 src="/images/harvest-artisan.jpg" 
                 alt="Transformation artisanale et matières premières agricoles au Sénégal" 
@@ -510,7 +560,7 @@ export default function App() {
           4. FONCTIONNEMENT EN 4 ÉTAPES (STYLE CLAIR & NET)
       ============================================================ */}
       <section id="etapes" className="py-20 sm:py-24 bg-[#F8FAFC] border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-6">
           
           <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
             <span className="text-xs font-bold uppercase tracking-wider text-[#2E7D32]">
@@ -588,7 +638,7 @@ export default function App() {
           6. FORMATION PROFESSIONNELLE ET QUIZ D'HYGIÈNE
       ============================================================ */}
       <section id="formation" className="py-20 sm:py-24 bg-white border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-6">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
@@ -600,7 +650,7 @@ export default function App() {
                 Une pédagogie de terrain validée pour l'entrepreneuriat
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                VALORA intègre un parcours certifiant complet élaboré à partir du programme du centre de formation d'ÉPICES'SN :
+                ALPHA VALORA intègre un parcours certifiant complet élaboré à partir du programme du centre de formation d'ÉPICES'SN :
               </p>
 
               <div className="space-y-3 pt-2">
@@ -643,9 +693,11 @@ export default function App() {
                         Tarif solidaire : 1 point = 1 500 FCFA
                       </span>
                     </div>
-                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
-                      Wave & Orange Money
-                    </span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white text-slate-900 border border-amber-300 shadow-2xs">
+                      <img src="/wave.jfif" alt="Wave" className="w-5 h-5 rounded-md object-contain" />
+                      <img src="/orangemoney.png" alt="Orange Money" className="w-5 h-5 rounded-full object-contain" />
+                      <span className="text-xs font-black">Wave & Orange Money</span>
+                    </div>
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed">
                     Chaque point débloque un module de formation certifiant complet (vidéo en atelier de Casamance, support PPTX et quiz de validation des Bonnes Pratiques d'Hygiène). Recharge simple et directe par mobile money.
@@ -661,12 +713,12 @@ export default function App() {
                 <img 
                   src="/images/workshop-training.jpg" 
                   alt="Session de formation en atelier de transformation agroalimentaire ÉPICES'SN" 
-                  className="w-full h-52 sm:h-60 object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-72 sm:h-88 md:h-[400px] object-cover object-center group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
-                <div className="absolute bottom-3 left-4 right-4 text-white text-left">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-300">Formation pratique certifiante</span>
-                  <div className="font-bold text-sm">Atelier conforme aux Bonnes Pratiques d'Hygiène (BPH)</div>
+                <div className="absolute bottom-4 left-5 right-5 text-white text-left">
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-300">Formation pratique certifiante</span>
+                  <div className="font-extrabold text-base sm:text-lg">Atelier conforme aux Bonnes Pratiques d'Hygiène (BPH)</div>
                 </div>
               </div>
 
@@ -715,7 +767,7 @@ export default function App() {
           7. CALCUL DES COÛTS & RENTABILITÉ
       ============================================================ */}
       <section id="calculateur" className="py-20 sm:py-24 bg-[#F8FAFC] border-b border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-6">
           
           <div className="text-center max-w-2xl mx-auto mb-14 sm:mb-16">
             <span className="text-xs font-bold uppercase tracking-wider text-[#2E7D32]">
@@ -725,7 +777,7 @@ export default function App() {
               Chiffrage et rentabilité de production
             </h2>
             <p className="mt-2.5 text-sm text-slate-600">
-              VALORA supprime les incertitudes en calculant automatiquement le prix de revient et la marge nette.
+              ALPHA VALORA supprime les incertitudes en calculant automatiquement le prix de revient et la marge nette.
             </p>
           </div>
 
@@ -837,7 +889,7 @@ export default function App() {
           8. MODÈLE FREEMIUM & GRILLE COMPARATIVE (0 FCFA vs PREMIUM)
       ============================================================ */}
       <section id="tarifs" className="py-20 sm:py-24 bg-gradient-to-b from-white via-slate-50/70 to-white border-b border-slate-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-4 lg:px-6">
           
           {/* En-tête de section */}
           <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
@@ -976,9 +1028,19 @@ export default function App() {
                     <span className="text-4xl sm:text-5xl font-black text-white tracking-tight">1 500 FCFA</span>
                     <span className="text-xs font-bold text-slate-300">/ module (1 point)</span>
                   </div>
-                  <div className="text-xs font-semibold text-[#4ADE80] mt-1 flex items-center gap-1.5">
-                    <Coins className="w-3.5 h-3.5" />
-                    <span>Paiement direct Wave & Orange Money</span>
+                  <div className="text-xs font-semibold text-[#4ADE80] mt-2 flex items-center gap-2 flex-wrap">
+                    <span className="flex items-center gap-1.5 font-bold">
+                      <Coins className="w-4 h-4" />
+                      <span>Paiement direct :</span>
+                    </span>
+                    <div className="inline-flex items-center gap-2 bg-white/10 px-2.5 py-1 rounded-xl border border-white/20 shadow-xs">
+                      <img src="/wave.jfif" alt="Wave" className="w-6 h-6 rounded-md object-contain" />
+                      <span className="text-xs font-black text-white">Wave</span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 bg-white/10 px-2.5 py-1 rounded-xl border border-white/20 shadow-xs">
+                      <img src="/orangemoney.png" alt="Orange Money" className="w-6 h-6 rounded-full object-contain" />
+                      <span className="text-xs font-black text-white">Orange Money</span>
+                    </div>
                   </div>
                   <p className="text-xs text-slate-300 mt-2 leading-relaxed">
                     Accès complet pour standardiser vos ateliers, former vos équipes et accéder aux réseaux de distribution formels.
@@ -1061,9 +1123,21 @@ export default function App() {
                 <strong>Paiement 100% sécurisé et local :</strong> Rechargez vos points de formation en quelques secondes par Wave ou Orange Money sans carte bancaire requise.
               </span>
             </div>
-            <div className="flex items-center gap-2 shrink-0 font-bold text-slate-800">
-              <span className="px-2.5 py-1 rounded-lg bg-sky-50 text-sky-800 border border-sky-200 text-[11px]">Wave</span>
-              <span className="px-2.5 py-1 rounded-lg bg-orange-50 text-orange-800 border border-orange-200 text-[11px]">Orange Money</span>
+            <div className="flex items-center gap-3 shrink-0 flex-wrap justify-center sm:justify-end">
+              <div className="inline-flex items-center gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-sky-50 text-sky-950 border border-sky-200 shadow-sm hover:shadow transition-shadow">
+                <img src="/wave.jfif" alt="Wave Sénégal" className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl object-contain shadow-xs" />
+                <div className="text-left">
+                  <span className="text-[10px] font-bold text-sky-700 block uppercase tracking-wider">Mobile Money</span>
+                  <span className="text-sm sm:text-base font-black text-sky-950">Wave</span>
+                </div>
+              </div>
+              <div className="inline-flex items-center gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-orange-50 text-orange-950 border border-orange-200 shadow-sm hover:shadow transition-shadow">
+                <img src="/orangemoney.png" alt="Orange Money Sénégal" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-contain shadow-xs" />
+                <div className="text-left">
+                  <span className="text-[10px] font-bold text-orange-700 block uppercase tracking-wider">Mobile Money</span>
+                  <span className="text-sm sm:text-base font-black text-orange-950">Orange Money</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1078,7 +1152,7 @@ export default function App() {
         {/* Glow discret */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-emerald-500/10 blur-[120px] pointer-events-none rounded-full" />
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-4 lg:px-6 relative z-10 space-y-8">
           
           {/* Logo officiel dans son carré blanc arrondi pour un contraste maximal */}
           <div className="flex justify-center">
@@ -1092,7 +1166,7 @@ export default function App() {
               Application mobile
             </span>
             <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-              Prenez part à la valorisation agroalimentaire avec VALORA
+              Prenez part à la valorisation agroalimentaire avec ALPHA VALORA
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed mx-auto">
               Téléchargez l'application sur votre smartphone ou explorez la démo interactive des fonctionnalités.
@@ -1112,10 +1186,120 @@ export default function App() {
       </section>
 
       {/* ============================================================
-          10. PIED DE PAGE AVEC COORDONNÉES OFFICIELLES & TIKTOK
+          10. FORMULAIRE DE CONTACT OFFICIEL (3 CHAMPS : EMAIL, NUMÉRO, MESSAGE)
+      ============================================================ */}
+      <section id="contact" className="py-20 sm:py-24 bg-white border-b border-slate-200">
+        <div className="max-w-2xl mx-auto px-4 sm:px-4 lg:px-6">
+          
+          <div className="text-center max-w-xl mx-auto mb-10 sm:mb-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20 text-[#2E7D32] text-xs font-bold mb-3.5">
+              <Mail className="w-4 h-4" />
+              <span>Formulaire officiel de contact</span>
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-black text-[#0A192F] tracking-tight">
+              Laissez-nous un message
+            </h2>
+            <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Vos demandes et questions sont transmises directement à l'équipe sur <strong className="text-slate-900">valoraappli@gmail.com</strong>.
+            </p>
+          </div>
+
+          <div className="bg-[#F8FAFC] border border-slate-200/90 rounded-3xl p-6 sm:p-9 shadow-sm text-left">
+            {contactSubmitted ? (
+              <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50 border border-emerald-300 text-center space-y-3 animate-fade-in">
+                <div className="w-12 h-12 rounded-full bg-[#2E7D32] text-white flex items-center justify-center mx-auto shadow-md">
+                  <Check className="w-6 h-6 stroke-[3]" />
+                </div>
+                <h3 className="text-lg font-black text-emerald-950">
+                  Message envoyé avec succès !
+                </h3>
+                <p className="text-xs sm:text-sm text-emerald-800 max-w-md mx-auto leading-relaxed">
+                  Votre message a bien été transmis à <strong className="font-mono">valoraappli@gmail.com</strong>. Nous vous recontacterons très rapidement.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setContactSubmitted(false)}
+                  className="mt-2 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-[#2E7D32] bg-white border border-emerald-200 hover:bg-emerald-50 transition-colors cursor-pointer"
+                >
+                  Envoyer un autre message
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleContactSubmit} className="space-y-4 sm:space-y-5">
+                
+                {/* Champ 1 : Adresse Email */}
+                <div>
+                  <label htmlFor="contact-email" className="block text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-1.5">
+                    1. Votre Adresse Email <span className="text-[#2E7D32]">*</span>
+                  </label>
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    placeholder="votre.email@exemple.com"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2E7D32] focus:border-transparent transition-all shadow-2xs"
+                  />
+                </div>
+
+                {/* Champ 2 : Numéro de Téléphone */}
+                <div>
+                  <label htmlFor="contact-phone" className="block text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-1.5">
+                    2. Numéro de Téléphone (WhatsApp ou Mobile) <span className="text-[#2E7D32]">*</span>
+                  </label>
+                  <input
+                    id="contact-phone"
+                    name="phone"
+                    type="tel"
+                    required
+                    placeholder="+221 77 123 45 67"
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2E7D32] focus:border-transparent transition-all shadow-2xs"
+                  />
+                </div>
+
+                {/* Champ 3 : Message */}
+                <div>
+                  <label htmlFor="contact-message" className="block text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-1.5">
+                    3. Votre Message <span className="text-[#2E7D32]">*</span>
+                  </label>
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    required
+                    rows={4}
+                    placeholder="Posez votre question sur l'application, les diagrammes ou la formation..."
+                    className="w-full px-4 py-3 text-xs sm:text-sm rounded-xl bg-white border border-slate-300 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#2E7D32] focus:border-transparent transition-all shadow-2xs resize-none"
+                  />
+                </div>
+
+                {contactError && (
+                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
+                    {contactError}
+                  </div>
+                )}
+
+                {/* Bouton d'envoi */}
+                <button
+                  type="submit"
+                  disabled={contactSubmitting}
+                  className="w-full py-3.5 px-6 rounded-xl bg-[#2E7D32] hover:bg-[#256629] disabled:opacity-60 text-white font-black text-xs sm:text-sm text-center transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Send className="w-4 h-4" />
+                  <span>{contactSubmitting ? 'Transmission en cours...' : 'Envoyer le message'}</span>
+                </button>
+
+              </form>
+            )}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ============================================================
+          11. PIED DE PAGE AVEC COORDONNÉES OFFICIELLES & TIKTOK
       ============================================================ */}
       <footer className="bg-white text-slate-600 py-12 sm:py-16 border-t border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-4 lg:px-6">
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
             
@@ -1125,18 +1309,18 @@ export default function App() {
                 <ValoraLogo 
                   variant="badge" 
                   size={58} 
-                  className="w-14 h-14 sm:w-16 sm:h-16 shrink-0 object-contain drop-shadow-xs" 
+                  className="w-14 h-14 sm:w-16 sm:h-16 shrink-0" 
                 />
                 <div className="flex flex-col text-left">
                   <span className="font-black text-xl text-[#0A192F] tracking-tight">
-                    VALORA ÉPICES'SN
+                    ALPHA VALORA ÉPICES'SN
                   </span>
                   <span className="text-xs font-semibold text-[#D97736]">
                     Valoriser. Transformer. Entreprendre.
                   </span>
                 </div>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed max-w-md mx-auto md:mx-0">
+              <p className="text-xs text-slate-500 leading-relaxed max-w-md mx-auto md:mx-0 text-center md:text-left">
                 Application mobile d'accompagnement en valorisation des matières premières agricoles, formation aux techniques de transformation et préparation de projets agroalimentaires.
               </p>
             </div>
@@ -1180,18 +1364,18 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="text-xs text-slate-400 pt-1">
+              <div className="text-xs text-slate-400 pt-1 text-center md:text-right w-full">
                 Bignona, Casamance, Sénégal
               </div>
             </div>
 
           </div>
 
-          <div className="mt-12 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
-            <div>
-              © {new Date().getFullYear()} VALORA ÉPICES'SN. Tous droits réservés.
+          <div className="mt-12 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 text-center sm:text-left">
+            <div className="text-center sm:text-left w-full sm:w-auto">
+              © {new Date().getFullYear()} ALPHA VALORA ÉPICES'SN (<span className="text-slate-700 font-semibold">valoraepicesn.com</span>). Tous droits réservés.
             </div>
-            <div className="flex items-center gap-4 text-slate-500">
+            <div className="flex items-center justify-center gap-4 text-slate-500 w-full sm:w-auto">
               <span>Sénégal</span>
               <span>·</span>
               <span>Agroalimentaire & Entrepreneuriat</span>

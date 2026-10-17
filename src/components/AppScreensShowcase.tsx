@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import valoraLogoImg from '../assets/VALORA Agricultural Logo Badge.png';
+import valoraLogoImg from '../assets/alpha-valora-logo.jpeg';
 import { 
   Camera, 
   Image as ImageIcon, 
@@ -112,7 +112,7 @@ export const AppScreensShowcase: React.FC = () => {
             <span>Écrans réels de l'application</span>
           </div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0A192F] tracking-tight">
-            Explorez l'expérience mobile VALORA
+            Explorez l'expérience mobile ALPHA VALORA
           </h2>
           <p className="mt-3.5 text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto">
             Chaque écran reproduit fidèlement l'interface de l'application : de la détection de la matière première au champ jusqu'à la rentabilité chiffrée de votre projet.
@@ -154,7 +154,7 @@ export const AppScreensShowcase: React.FC = () => {
           
           {/* SMARTPHONE MOBILE HAUTE FIDÉLITÉ (TOUS ÉCRANS) */}
           <div className="lg:col-span-7 flex justify-center w-full">
-            <div className="w-full max-w-[340px] sm:max-w-[360px] bg-[#0A192F] rounded-[44px] sm:rounded-[48px] p-2.5 sm:p-3 shadow-2xl border-[5px] sm:border-[6px] border-[#0A192F] ring-1 ring-slate-900/10 relative">
+            <div className="w-full max-w-[360px] sm:max-w-[400px] bg-[#0A192F] rounded-[44px] sm:rounded-[48px] p-2.5 sm:p-3.5 shadow-2xl border-[5px] sm:border-[6px] border-[#0A192F] ring-1 ring-slate-900/10 relative">
               
               {/* Dynamic Island */}
               <div className="absolute top-4 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-full z-20 flex items-center justify-end pr-2">
@@ -162,7 +162,7 @@ export const AppScreensShowcase: React.FC = () => {
               </div>
 
               {/* Écran smartphone blanc pur ultra-lisible */}
-              <div className="w-full bg-[#FFFFFF] rounded-[34px] sm:rounded-[38px] overflow-hidden min-h-[580px] max-h-[640px] flex flex-col text-slate-900 text-xs border border-slate-200 select-none">
+              <div className="w-full bg-[#FFFFFF] rounded-[34px] sm:rounded-[38px] overflow-hidden min-h-[620px] max-h-[690px] flex flex-col text-slate-900 text-xs border border-slate-200 select-none">
                 
                 {/* Barre système */}
                 <div className="h-7 bg-white px-5 sm:px-6 pt-2 flex justify-between items-center text-[10px] text-slate-500 font-semibold shrink-0">
@@ -176,8 +176,8 @@ export const AppScreensShowcase: React.FC = () => {
                 {/* Header d'application */}
                 <div className="px-4 py-2.5 bg-white border-b border-slate-100 flex items-center justify-between shrink-0">
                   <div className="flex items-center gap-2">
-                    <img src={valoraLogoImg} alt="Logo VALORA ÉPICES'SN" className="w-6 h-6 object-contain drop-shadow-2xs" />
-                    <span className="font-black text-[#0A192F] text-xs tracking-tight">VALORA</span>
+                    <img src={valoraLogoImg} alt="Logo ALPHA VALORA ÉPICES'SN" className="w-6 h-6 object-contain drop-shadow-2xs" />
+                    <span className="font-black text-[#0A192F] text-xs tracking-tight">ALPHA VALORA</span>
                   </div>
                   <span className="text-[10px] font-bold text-[#2E7D32] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
                     ÉPICES'SN

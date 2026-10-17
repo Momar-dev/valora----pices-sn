@@ -1,0 +1,6 @@
+# robots.txt pour https://valoraepicesn.com
+User-agent: *
+Allow: /
+
+# Sitemap officiel pour Google Search Console & moteurs de recherche
+Sitemap: https://valoraepicesn.com/sitemap.xml

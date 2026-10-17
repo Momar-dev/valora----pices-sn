@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Configuration centralisée pour VALORA ÉPICES'SN
  * 
  * -------------------------------------------------------------
@@ -26,13 +26,15 @@ export const DOWNLOAD_CONFIG = {
  * (Seul réseau social officiel : TikTok)
  */
 export const OFFICIAL_CONTACT = {
-  appName: "VALORA ÉPICES'SN",
-  shortName: "VALORA",
+  appName: "ALPHA VALORA ÉPICES'SN",
+  shortName: "ALPHA VALORA",
   signature: "Valoriser. Transformer. Entreprendre.",
   email: "valoraappli@gmail.com",
   phoneDisplay: "+221 76 358 15 26",
   tiktokUrl: "https://www.tiktok.com/@epices_sn",
   tiktokHandle: "@epices_sn",
+  siteUrl: "https://valoraepicesn.com",
+  domain: "valoraepicesn.com",
   organization: "ÉPICES'SN",
   location: "Sénégal (Casamance & national)",
   targetAudience: "Femmes, jeunes entrepreneurs et transformatrices agroalimentaires",
